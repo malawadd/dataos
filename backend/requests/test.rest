@@ -1,0 +1,15 @@
+POST http://localhost:3001/api/steps/ HTTP/1.1
+content-type: application/json
+
+{
+    "food": "cupcakes"
+}
+
+###
+POST http://localhost:3001/api/explain/ HTTP/1.1
+content-type: application/json
+
+{
+    "id": 0,
+    "question": "Can you explain step 3 in more detail? How to whisk?"
+}
