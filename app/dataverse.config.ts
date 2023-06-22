@@ -1,10 +1,10 @@
 export const config = {
-  slug: "", // app id, need to match this regular: `^[a-zA-Z][a-zA-Z0-9_]*$`
-  name: "", // app name should NOT contain "-"
+  slug: "recipesOS", // app id, need to match this regular: `^[a-zA-Z][a-zA-Z0-9_]*$`
+  name: "recipesOS", // app name should NOT contain "-"
   logo: "",
-  website: "", // you can use localhost:(port) for testing
-  defaultFolderName: "Untitled",
-  description: "",
+  website: "http://localhost:5173/", // you can use localhost:(port) for testing
+  defaultFolderName: "recipesOS",
+  description: "generate recipes and share them with the world ",
   models: [
     {
       isPublicDomain: false, // default

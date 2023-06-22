@@ -13,7 +13,7 @@ import { useConfig } from "../../context/configContext";
 
 const Create = () => {
   const [loading, setLoading] = useState(false);
-  const [loaded, setLoaded] = useState(true);
+  const [loaded, setLoaded] = useState(false);
   const [loadRecipeData, setLoadRecipeData] = useState('');
   const [dishName, setDishName] = useState('<No Dish>');
   const [totalTime, setTotalTime] = useState('50min');
@@ -50,7 +50,7 @@ const Create = () => {
   };
 
   const loadSteps = () => {
-    console.log("steps", steps)
+  
     return steps.map((step, i) => (
       <Task
         key={i}
@@ -77,7 +77,7 @@ const Create = () => {
         .then((response) => response.json())
         .then((data) => {
           const { name, steps } = data;
-          console.log("this is ths data of steps", steps)
+          
           const totalTime = steps.reduce((accumulator, step) => accumulator + Number(step.time), 0);
           console.log(totalTime);
           setDishName(name);
@@ -90,14 +90,14 @@ const Create = () => {
   };
 
   const data = loadSteps();
-  console.log("time is", totalTime)
+  
 
   const formatStepsToString = () =>  {
     const steps = loadSteps();
     let formattedString = "";
   
     steps.forEach((step, index) => {
-      console.log("this is what the loop have ", step )
+     
       const stepNumber = index + 1;
       const stepText = step.props.directions;
       formattedString += `Step ${stepNumber}: ${stepText}\n`;
@@ -107,7 +107,7 @@ const Create = () => {
   }
   
   const formattedSteps = formatStepsToString();
-  console.log("formayyy", formattedSteps)
+  
 
   const createPublicPost = async () => {
   
@@ -142,7 +142,9 @@ const Create = () => {
 
   if (!loaded) {
     return (
-      <div className="grid" style={{ margin: '50px' }}>
+        
+      <div >
+        <Header />
         {!loading && (
           <>
             <span className="big-text human">Pick a dish:</span>
@@ -166,7 +168,7 @@ const Create = () => {
         )}
         {loading && (
           <>
-          <Header />
+          
             <img src="logo.png" alt="logo" className="loading-logo" />
             <br />
             <h1 className="loading-dots">Thinking</h1>

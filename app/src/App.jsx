@@ -16,7 +16,7 @@ import { useConfig } from "./context/configContext";
 
 const App = () => {
   const [loading, setLoading] = useState(false);
-  const [loaded, setLoaded] = useState(true);
+  const [loaded, setLoaded] = useState(false);
   const [loadRecipeData, setLoadRecipeData] = useState('');
   const [dishName, setDishName] = useState('<No Dish>');
   const [totalTime, setTotalTime] = useState('50min');
@@ -53,7 +53,7 @@ const App = () => {
   };
 
   const loadSteps = () => {
-    console.log("steps", steps)
+  
     return steps.map((step, i) => (
       <Task
         key={i}
@@ -80,7 +80,7 @@ const App = () => {
         .then((response) => response.json())
         .then((data) => {
           const { name, steps } = data;
-          console.log("this is ths data of steps", steps)
+          
           const totalTime = steps.reduce((accumulator, step) => accumulator + Number(step.time), 0);
           console.log(totalTime);
           setDishName(name);
@@ -93,14 +93,14 @@ const App = () => {
   };
 
   const data = loadSteps();
-  console.log("time is", totalTime)
+ 
 
   const formatStepsToString = () =>  {
     const steps = loadSteps();
     let formattedString = "";
   
     steps.forEach((step, index) => {
-      console.log("this is what the loop have ", step )
+      
       const stepNumber = index + 1;
       const stepText = step.props.directions;
       formattedString += `Step ${stepNumber}: ${stepText}\n`;
@@ -110,7 +110,7 @@ const App = () => {
   }
   
   const formattedSteps = formatStepsToString();
-  console.log("formayyy", formattedSteps)
+ 
 
   const createPublicPost = async () => {
   
@@ -145,9 +145,12 @@ const App = () => {
 
   if (!loaded) {
     return (
-      <div className="grid" style={{ margin: '50px' }}>
+      
+      <div >
+        <Header />
         {!loading && (
           <>
+          
             <span className="big-text human">Pick a dish:</span>
             <form style={{ margin: '50px auto 50px', display: 'grid' }}>
               <h3>Give me a recipe!</h3>
@@ -169,7 +172,7 @@ const App = () => {
         )}
         {loading && (
           <>
-          <Header />
+          
             <img src="logo.png" alt="logo" className="loading-logo" />
             <br />
             <h1 className="loading-dots">Thinking</h1>
