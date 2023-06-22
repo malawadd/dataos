@@ -59,7 +59,7 @@ const Header = (): React.ReactElement => {
 
       <SubBrand
         onClick={() => {
-          navigate("/");
+          navigate("/old");
         }}
       >
         Explore
@@ -67,7 +67,7 @@ const Header = (): React.ReactElement => {
 
       <SubBrand
         onClick={() => {
-          navigate("/");
+          navigate("/create");
         }}
       >
         Create 
