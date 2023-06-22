@@ -5,7 +5,8 @@ import App from "./App";
 import { ConfigProvider } from "./context/configContext";
 import { UserProvider } from "./context/userContext";
 import Toolkits from "./pages/toolkits";
-import "./index.css";
+import Old from "./pages/old";
+// import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <ConfigProvider>
@@ -14,6 +15,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/toolkits" element={<Toolkits />} />
+          <Route path="/old" element={<Old />} />
         </Routes>
       </BrowserRouter>
     </UserProvider>

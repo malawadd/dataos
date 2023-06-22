@@ -1,22 +1,22 @@
-import "./App.css";
+import "../../App.css";
 import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Currency } from "@dataverse/runtime-connector";
-import { useWallet, useStream } from "./hooks";
+import { useWallet, useStream } from "../../hooks";
 import ReactJson from "react-json-view";
-import { Model, StreamRecord } from "./types";
-import { getModelByName } from "./utils";
-import { useConfig } from "./context/configContext";
-import Header from "./components/Header";
+import { Model, StreamRecord } from "../../types";
+import { getModelByName } from "../../utils";
+import { useConfig } from "../../context/configContext";
+import Header from "../../components/Header";
 import {
   Container,
   HeaderWrapper,
   BodyWrapper,
   PostWrapper,
   DisplayPostWrapper,
-} from "./styled";
+} from "../../styled";
 
-function App() {
+function Old() {
   const navigate = useNavigate();
   const { output, appVersion } = useConfig();
   const [postModel, setPostModel] = useState<Model>();
@@ -283,4 +283,4 @@ function App() {
   );
 }
 
-export default App;
+export default Old;
