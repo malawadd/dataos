@@ -19,6 +19,18 @@ export const Brand = styled.div`
   cursor: pointer;
 `;
 
+export const SubBrand = styled.div`
+  font-weight: normal;
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 24px;
+  line-height: 29px;
+  color: #000000;
+  cursor: pointer;
+`;
+
+
 export const HeaderRightRender = styled.div`
   display: flex;
   justify-items: center;

@@ -16,7 +16,7 @@ import { useConfig } from "./context/configContext";
 
 const App = () => {
   const [loading, setLoading] = useState(false);
-  const [loaded, setLoaded] = useState(false);
+  const [loaded, setLoaded] = useState(true);
   const [loadRecipeData, setLoadRecipeData] = useState('');
   const [dishName, setDishName] = useState('<No Dish>');
   const [totalTime, setTotalTime] = useState('50min');
@@ -89,13 +89,11 @@ const App = () => {
           setLoaded(true);
           
         });
-        console.log("data", data)
     }
   };
 
   const data = loadSteps();
-  console.log("text is as following", data)
-  console.log("data description", data[0].props.directions)
+  console.log("time is", totalTime)
 
   const formatStepsToString = () =>  {
     const steps = loadSteps();
@@ -171,6 +169,7 @@ const App = () => {
         )}
         {loading && (
           <>
+          <Header />
             <img src="logo.png" alt="logo" className="loading-logo" />
             <br />
             <h1 className="loading-dots">Thinking</h1>
@@ -199,7 +198,7 @@ const App = () => {
           }}
         >
           <div className="clock-container shadow">
-            <img src="clock.png" alt="clock" width="5%" style={{ margin: '15px auto 0px' }} />
+            <img src="clock.png" alt="clock" width="50%" style={{ margin: '15px auto 0px' }} />
             <br />
             <span style={{ color: 'var(--primary)', margin: 'auto' }}>{totalTime}</span>
           </div>
