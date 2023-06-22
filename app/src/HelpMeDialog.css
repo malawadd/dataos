@@ -1,0 +1,49 @@
+.help {
+  width: 200px;
+  border-radius: 999px;
+  background: black;
+  color: white;
+  margin: auto;
+  padding: 10px;
+  transition: 0.75s;
+}
+
+.help:hover {
+  cursor: pointer;
+  /* width: 225px; */
+  transform: rotateX(10deg) rotateY(20deg);
+}
+
+.help.hide {
+  opacity: 0;
+}
+
+textarea {
+  width: 250px;
+  height: 80px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  resize: none;
+}
+
+.close {
+  position: absolute;
+  right: 0;
+}
+
+.submit {
+  width: 100px;
+  margin: auto;
+  text-align: center;
+  background: var(--support2);
+  border: 0;
+  border-radius: 999px;
+}
+
+.close:hover,
+.submit:hover {
+  cursor: pointer;
+}
