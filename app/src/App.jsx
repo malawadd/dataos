@@ -5,17 +5,43 @@ import HelpMeDialog from './HelpMeDialog.jsx';
 import Task from './Task.jsx';
 import Header from "./components/Header";
 
+import { useNavigate } from "react-router-dom";
+import { Currency } from "@dataverse/runtime-connector";
+import { useWallet, useStream } from "./hooks";
+import ReactJson from "react-json-view";
+// import { Model, StreamRecord } from "./types";
+import { getModelByName } from "./utils";
+import { useConfig } from "./context/configContext";
+
+
 const App = () => {
   const [loading, setLoading] = useState(false);
-  const [loaded, setLoaded] = useState(true);
+  const [loaded, setLoaded] = useState(false);
   const [loadRecipeData, setLoadRecipeData] = useState('');
   const [dishName, setDishName] = useState('<No Dish>');
   const [totalTime, setTotalTime] = useState('50min');
   const [steps, setSteps] = useState([
-    { time: 1, description: '1' },
+    { time: 1, description: 'hey 9ollef ' },
     { time: 2, description: '2' },
     { time: 3, description: '3' }
   ]);
+  const navigate = useNavigate();
+  const { output, appVersion } = useConfig();
+  const [postModel, setPostModel] = useState();
+  const [currentStreamId, setCurrentStreamId] = useState();
+  const [publicPost, setPublicPost] = useState();
+
+
+
+  const {
+    pkh,
+    createPublicStream,
+  } = useStream();
+
+  useEffect(() => {
+    const postModel = getModelByName(`${output.createDapp.slug}_post`);
+    setPostModel(postModel);
+  }, [output]);
 
   useEffect(() => {
     // Perform any side effects or initialization logic here
@@ -54,18 +80,70 @@ const App = () => {
         .then((response) => response.json())
         .then((data) => {
           const { name, steps } = data;
+          console.log("this is ths data of steps", steps)
           const totalTime = steps.reduce((accumulator, step) => accumulator + Number(step.time), 0);
           console.log(totalTime);
           setDishName(name);
           setSteps(steps);
           setTotalTime(`${totalTime} Min`);
           setLoaded(true);
+          
         });
         console.log("data", data)
     }
   };
 
   const data = loadSteps();
+  console.log("text is as following", data)
+  console.log("data description", data[0].props.directions)
+
+  const formatStepsToString = () =>  {
+    const steps = loadSteps();
+    let formattedString = "";
+  
+    steps.forEach((step, index) => {
+      console.log("this is what the loop have ", step )
+      const stepNumber = index + 1;
+      const stepText = step.props.directions;
+      formattedString += `Step ${stepNumber}: ${stepText}\n`;
+    });
+  
+    return formattedString;
+  }
+  
+  const formattedSteps = formatStepsToString();
+  console.log("formayyy", formattedSteps)
+
+  const createPublicPost = async () => {
+  
+    if (!postModel) {
+      console.error("postModel undefined");
+      return;
+    }
+
+    const formattedSteps = formatStepsToString();
+
+    console.log("logging formatted steps:", formattedSteps)
+
+    const date = new Date().toISOString();
+    const { streamId, ...streamRecord } = await createPublicStream({
+      pkh,
+      model: postModel,
+      stream: {
+        appVersion,
+        text: formattedSteps,
+        images: [
+          "https://bafkreib76wz6wewtkfmp5rhm3ep6tf4xjixvzzyh64nbyge5yhjno24yl4.ipfs.w3s.link",
+        ],
+        videos: [],
+        createdAt: date,
+        updatedAt: date,
+      },
+    });
+
+    setCurrentStreamId(streamId);
+    setPublicPost(streamRecord );
+  };
 
   if (!loaded) {
     return (
@@ -139,6 +217,7 @@ const App = () => {
 
         <div style={{ width: '100%', paddingBottom: '20px', position: 'fixed', bottom: '0' }}>
           <HelpMeDialog />
+          <button onClick={createPublicPost}>createPublicPost</button>
         </div>
 
         <div style={{ height: '100px' }}></div>
